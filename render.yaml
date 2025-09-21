@@ -1,19 +1,24 @@
 services:
   - type: web
-    name: your-app-name
+    name: repowipe
     runtime: go
     buildCommand: go build -o app
     startCommand: ./app
     envVars:
       - key: GIN_MODE
         value: release
-      - key: YOUR_ENV_VAR
-        value: your-value
-    # Optional: if you need to build frontend first
-    # buildCommand: |
-    #   cd frontend
-    #   npm install
-    #   npm run build
-    #   cp -r dist/* ../static/
-    #   cd ..
-    #   go build -o app
+      - key: GITHUB_TOKEN
+        sync: false # This means you'll add it manually in Render dashboard
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
+      # Add these if you use them in your code
+      # - key: SESSION_SECRET
+      #   generateValue: true # Render will generate a random value
+      # - key: DATABASE_URL
+      #   sync: false # Add manually if using a database
+      # - key: REDIS_URL
+      #   sync: false # Add manually if using Redis
+      # - key: API_BASE_URL
+      #   value: https://repowipe.onrender.com # Update after first deploy

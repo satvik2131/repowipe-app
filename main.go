@@ -13,7 +13,7 @@ import (
 
 func main() {
 	config.InitEnvVar()
-	config.InitRedis()
+	// config.InitRedis()
 
 	    // Get port from environment variable
     port := os.Getenv("PORT")
