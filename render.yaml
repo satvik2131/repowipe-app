@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: your-app-name
+    runtime: go
+    buildCommand: go build -o app
+    startCommand: ./app
+    envVars:
+      - key: GIN_MODE
+        value: release
+      - key: YOUR_ENV_VAR
+        value: your-value
+    # Optional: if you need to build frontend first
+    # buildCommand: |
+    #   cd frontend
+    #   npm install
+    #   npm run build
+    #   cp -r dist/* ../static/
+    #   cd ..
+    #   go build -o app
