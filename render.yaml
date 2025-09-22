@@ -7,18 +7,11 @@ services:
     envVars:
       - key: GIN_MODE
         value: release
-      - key: GITHUB_TOKEN
-        sync: false # This means you'll add it manually in Render dashboard
       - key: GITHUB_CLIENT_ID
-        sync: false
+        value: Ov23lipkSBIqLHtut47C
       - key: GITHUB_CLIENT_SECRET
-        sync: false
-      # Add these if you use them in your code
-      # - key: SESSION_SECRET
-      #   generateValue: true # Render will generate a random value
-      # - key: DATABASE_URL
-      #   sync: false # Add manually if using a database
-      # - key: REDIS_URL
-      #   sync: false # Add manually if using Redis
-      # - key: API_BASE_URL
-      #   value: https://repowipe.onrender.com # Update after first deploy
+        value: 1c9948f82b2c38f06e223ed61c73e37effb8ab92
+      - key: REDIS_ADDRESS
+        value: "redis-17722.c8.us-east-1-3.ec2.redns.redis-cloud.com:17722"
+      - key: REDIS_PASSWORD
+        value: "PHXmYGLgUMiWLkDIWhdV5TWxz2ZohBNL"

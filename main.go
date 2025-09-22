@@ -13,9 +13,9 @@ import (
 
 func main() {
 	config.InitEnvVar()
-	// config.InitRedis()
+	config.InitRedis()
 
-	    // Get port from environment variable
+	// Get port from environment variable
     port := os.Getenv("PORT")
     if port == "" {
         port = "8080" // Default port for local development
