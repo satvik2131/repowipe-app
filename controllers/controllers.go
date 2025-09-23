@@ -32,7 +32,7 @@ func SetAccessToken( c *gin.Context){
 	// Parse JSON request body into struct
 	if err := c.ShouldBindJSON(&tempCred); err != nil {
 		log.Println("error-=")
-		c.JSON(http.StatusBadGateway,gin.H{"status":"invalid code credentials"})
+		c.JSON(http.StatusForbidden,gin.H{"status":"invalid code credentials"})
 		return
 	}
 
@@ -45,7 +45,7 @@ func SetAccessToken( c *gin.Context){
 		sessionID,
 		0,
 		"/",
-		"localhost",
+		"repowipe.site",
 		true,
 		true,
 	)	
