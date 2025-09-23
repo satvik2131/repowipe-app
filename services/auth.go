@@ -29,7 +29,7 @@ func FetchAccessToken(c *gin.Context, tempCred types.TempCode)(*types.AccessToke
 		log.Printf("Error making request: %v", err)
 		return nil,err
 	}
-
+		log.Println("FetchAccToken--URL",resp.Request.URL)
 		log.Println("FetchAccToken--tokenResp",tokenResp)
 
 
