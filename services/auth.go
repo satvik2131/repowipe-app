@@ -54,6 +54,9 @@ func FetchUser(c *gin.Context, accessToken string) any  {
 		return nil
 	}
 
+	log.Println("FetchUser--Resp-Status",resp.StatusCode())
+	log.Println("FetchUser--Resp",resp.Body())
+
 	if resp.StatusCode() != http.StatusOK {
 		log.Printf("Error status: %d", resp.StatusCode())
 		c.JSON(resp.StatusCode(), gin.H{"error": "Failed to fetch user"})

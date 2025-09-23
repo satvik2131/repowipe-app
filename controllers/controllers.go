@@ -38,7 +38,9 @@ func SetAccessToken( c *gin.Context){
 	}
 
 	accessTokenResp := services.FetchAccessToken(c,tempCred)
+	log.Println("SetAccessToken--accessTokenResp==",accessTokenResp)
 	user := services.FetchUser(c,accessTokenResp.AccessToken)
+	log.Println("SetAccessTokne--user--",user)
 
 	sessionID := saveToken(accessTokenResp.AccessToken)
 
