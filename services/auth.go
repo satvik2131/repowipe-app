@@ -40,7 +40,7 @@ func FetchAccessToken(c *gin.Context, tempCred types.TempCode) types.AccessToken
 }
 
 
-func FetchUser(c *gin.Context, accessToken string) types.User {
+func FetchUser(c *gin.Context, accessToken string) any  {
 	var user types.User
 
 	resp, err := utils.Client.R().
@@ -51,13 +51,13 @@ func FetchUser(c *gin.Context, accessToken string) types.User {
 	if err != nil {
 		log.Printf("Error fetching user: %v", err)
 		c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
-		return types.User{}
+		return nil
 	}
 
 	if resp.StatusCode() != http.StatusOK {
 		log.Printf("Error status: %d", resp.StatusCode())
 		c.JSON(resp.StatusCode(), gin.H{"error": "Failed to fetch user"})
-		return types.User{}
+		return nil
 	}
 
 	return user

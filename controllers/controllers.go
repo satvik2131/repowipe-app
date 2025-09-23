@@ -29,6 +29,7 @@ func VerifyUser(c *gin.Context){
 func SetAccessToken( c *gin.Context){
 	//github oauth temp code and status (to be exchanged for access_token)
 	var tempCred types.TempCode;
+
 	// Parse JSON request body into struct
 	if err := c.ShouldBindJSON(&tempCred); err != nil {
 		log.Println("error-=")
@@ -38,6 +39,7 @@ func SetAccessToken( c *gin.Context){
 
 	accessTokenResp := services.FetchAccessToken(c,tempCred)
 	user := services.FetchUser(c,accessTokenResp.AccessToken)
+
 	sessionID := saveToken(accessTokenResp.AccessToken)
 
 	c.SetCookie(	
@@ -45,7 +47,7 @@ func SetAccessToken( c *gin.Context){
 		sessionID,
 		0,
 		"/",
-		"repowipe.site",
+		"repowipe",
 		true,
 		true,
 	)	
