@@ -11,8 +11,9 @@ import (
 )
 
 //fetches the access_token in exchange of temporary credentials
-func FetchAccessToken(c *gin.Context, tempCred types.TempCode) types.AccessTokenResponse {
+func FetchAccessToken(c *gin.Context, tempCred types.TempCode)(*types.AccessTokenResponse,error) {
 	var tokenResp types.AccessTokenResponse
+	log.Println("FetchAccToken--temp-cred",tempCred)
 
 	resp, err := utils.Client.R().
 		SetQueryParams(map[string]string{
@@ -26,17 +27,18 @@ func FetchAccessToken(c *gin.Context, tempCred types.TempCode) types.AccessToken
 
 	if err != nil {
 		log.Printf("Error making request: %v", err)
-		c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
-		return types.AccessTokenResponse{}
+		return nil,err
 	}
+
+		log.Println("FetchAccToken--tokenResp",tokenResp)
+
 
 	if resp.StatusCode() != http.StatusOK {
 		log.Printf("Error status: %d", resp.StatusCode())
-		c.JSON(resp.StatusCode(), gin.H{"error": "Failed to get access token"})
-		return types.AccessTokenResponse{}
+		return nil,err
 	}
 
-	return tokenResp
+	return &tokenResp,nil
 }
 
 

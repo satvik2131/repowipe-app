@@ -37,7 +37,11 @@ func SetAccessToken( c *gin.Context){
 		return
 	}
 
-	accessTokenResp := services.FetchAccessToken(c,tempCred)
+	accessTokenResp,err := services.FetchAccessToken(c,tempCred)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized,err)
+	}
+	
 	log.Println("SetAccessToken--accessTokenResp==",accessTokenResp)
 	user := services.FetchUser(c,accessTokenResp.AccessToken)
 	log.Println("SetAccessTokne--user--",user)
