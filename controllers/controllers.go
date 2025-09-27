@@ -42,18 +42,15 @@ func SetAccessToken( c *gin.Context){
 		c.JSON(http.StatusUnauthorized,err)
 	}
 	
-	log.Println("SetAccessToken--accessTokenResp==",accessTokenResp)
 	user := services.FetchUser(c,accessTokenResp.AccessToken)
-	log.Println("SetAccessTokne--user--",user)
-
 	sessionID := saveToken(accessTokenResp.AccessToken)
 
 	c.SetCookie(	
 		"session_id",
 		sessionID,
-		0,
+		3600,
 		"/",
-		"repowipe",
+		"repowipe.site",
 		true,
 		true,
 	)	
@@ -63,12 +60,15 @@ func SetAccessToken( c *gin.Context){
 func FetchAllRepos (c *gin.Context){
 	page := c.Query("page")
 	sessionId,err := c.Cookie("session_id")
+	log.Println("FetchAlLREpos==session_http_only_cookie===",sessionId)
 	if err != nil{
 		c.JSON(http.StatusUnauthorized,nil)
 		return
 	}
 
 	accessToken := getToken(sessionId)
+	log.Println("FetchAlLREpos==accessToken===",accessToken)
+
 	services.FetchRepos(c,accessToken,page)
 }
 

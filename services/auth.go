@@ -13,7 +13,6 @@ import (
 //fetches the access_token in exchange of temporary credentials
 func FetchAccessToken(c *gin.Context, tempCred types.TempCode)(*types.AccessTokenResponse,error) {
 	var tokenResp types.AccessTokenResponse
-	log.Println("FetchAccToken--temp-cred",tempCred)
 
 	resp, err := utils.Client.R().
 		SetQueryParams(map[string]string{
@@ -29,9 +28,6 @@ func FetchAccessToken(c *gin.Context, tempCred types.TempCode)(*types.AccessToke
 		log.Printf("Error making request: %v", err)
 		return nil,err
 	}
-		log.Println("FetchAccToken--URL",resp.Request.URL)
-		log.Println("FetchAccToken--tokenResp",tokenResp)
-
 
 	if resp.StatusCode() != http.StatusOK {
 		log.Printf("Error status: %d", resp.StatusCode())
@@ -55,9 +51,6 @@ func FetchUser(c *gin.Context, accessToken string) any  {
 		c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
 		return nil
 	}
-
-	log.Println("FetchUser--Resp-Status",resp.StatusCode())
-	log.Println("FetchUser--Resp",resp.Body())
 
 	if resp.StatusCode() != http.StatusOK {
 		log.Printf("Error status: %d", resp.StatusCode())
