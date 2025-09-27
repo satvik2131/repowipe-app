@@ -14,20 +14,24 @@ import (
 func FetchAccessToken(c *gin.Context, tempCred types.TempCode)(*types.AccessTokenResponse,error) {
 	var tokenResp types.AccessTokenResponse
 
+	query := map[string]string{
+		"client_id":     config.ClientId,
+		"client_secret": config.ClientSecret,
+		"code":         tempCred.Code,
+		"redirect_uri": config.Redirect_Uri,
+	}
+
 	resp, err := utils.Client.R().
-		SetQueryParams(map[string]string{
-			"client_id":     config.ClientId,
-			"client_secret": config.ClientSecret,
-			"code":         tempCred.Code,
-			"redirect_uri": config.Redirect_Uri,
-		}).
+		SetQueryParams(query).
 		SetResult(&tokenResp).
 		Post(config.AccessTokenUrl)
 
-		log.Println("FetchAccessToken-tokenResp=",tokenResp)
+		log.Println("FetchAccessToken-tokenResp=",resp.Request.URL)
+		log.Println("FetchAccessToken-tokenResp=",resp.Request.QueryParam)
+
 
 	if err != nil {
-		log.Printf("FetchAccessToken:Error making request: %v", err)
+		log.Printf("Error making request: %v", err)
 		return nil,err
 	}
 
