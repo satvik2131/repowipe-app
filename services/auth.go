@@ -45,9 +45,7 @@ func FetchUser(c *gin.Context, accessToken string) any  {
 		SetHeader("Authorization", "Bearer "+accessToken).
 		SetResult(&user).
 		Get(config.GetUserApi)
-
-		log.Println("Fetch user - request url",resp.Request.URL)
-		log.Println("header- req ", resp.Request.Header)
+		
 
 	if err != nil {
 		log.Printf("Error fetching user: %v", err)

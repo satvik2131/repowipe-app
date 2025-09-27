@@ -36,6 +36,7 @@ func SetAccessToken( c *gin.Context){
 		c.JSON(http.StatusForbidden,gin.H{"status":"invalid code credentials"})
 		return
 	}
+	log.Println("TempCredentials---",tempCred)
 
 	accessTokenResp,err := services.FetchAccessToken(c,tempCred)
 	if err != nil {
