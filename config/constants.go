@@ -13,7 +13,7 @@ const (
 	GetUserApi = "https://api.github.com/user"
  	GetRepoApi = "https://api.github.com/user/repos"
 	AccessTokenUrl = "https://github.com/login/oauth/access_token"
-	Redirect_Uri = "http://localhost:3000/auth/"
+	Redirect_Uri = "https://repowipe.site/auth"
 	SearchUri = "https://api.github.com/search/repositories"
 	DeleteApi = "https://api.github.com/repos/"
  )
