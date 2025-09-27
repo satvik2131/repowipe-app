@@ -24,8 +24,10 @@ func FetchAccessToken(c *gin.Context, tempCred types.TempCode)(*types.AccessToke
 		SetResult(&tokenResp).
 		Post(config.AccessTokenUrl)
 
+		log.Println("FetchAccessToken-tokenResp=",tokenResp)
+
 	if err != nil {
-		log.Printf("Error making request: %v", err)
+		log.Printf("FetchAccessToken:Error making request: %v", err)
 		return nil,err
 	}
 
@@ -49,13 +51,11 @@ func FetchUser(c *gin.Context, accessToken string) any  {
 
 	if err != nil {
 		log.Printf("Error fetching user: %v", err)
-		c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
 		return nil
 	}
 
 	if resp.StatusCode() != http.StatusOK {
 		log.Printf("Error status: %d", resp.StatusCode())
-		c.JSON(resp.StatusCode(), gin.H{"error": "Failed to fetch user"})
 		return nil
 	}
 
